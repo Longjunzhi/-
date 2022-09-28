@@ -1,10 +1,15 @@
 package main
 
 import (
+	"context"
 	"errors"
-	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
+	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"pxj/courseSystem/api/routes"
+	"syscall"
 	"time"
 )
 
@@ -14,7 +19,7 @@ func main() {
 			println(err.(string))
 		}
 	}()
-	router := gin.Default()
+	router := routes.Routes
 	address := "0.0.0.0"
 	server := &http.Server{
 		Addr:           address,
@@ -30,4 +35,14 @@ func main() {
 			logrus.Errorf("Server Listen Error: %s\n ", err)
 		}
 	}()
+	quit := make(chan os.Signal)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	log.Println("Shutting down server ...")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := server.Shutdown(ctx); err != nil {
+		log.Fatal("Server forced to shutdown:", err)
+	}
+	log.Println("Server exiting")
 }

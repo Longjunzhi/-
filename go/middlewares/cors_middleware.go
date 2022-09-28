@@ -5,9 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Auth() gin.HandlerFunc {
+func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Println("Auth 中间件")
+		fmt.Println("cors 中间件")
 		c.Next()
 	}
 }
