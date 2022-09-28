@@ -1,2 +1,4 @@
 vendor
 tmp
+config/config.dev.yml
+config/config.prod.yml
