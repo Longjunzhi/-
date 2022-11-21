@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"pxj/courseSystem/api/routes"
+	"pxj/CloudTravelShopApi/go/routes"
 	"syscall"
 	"time"
 )
