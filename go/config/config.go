@@ -49,27 +49,18 @@ func init() {
 	} else {
 		viper.SetConfigName("config.dev")
 	}
-	path, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	logrus.Infof("path = %v", path)
-	idx := strings.Index(path, fmt.Sprintf("%scourseSystem", concurrentOsTag))
-	if idx < 0 {
-		panic(fmt.Errorf("project path /courseSystem idx = %v", idx))
-	}
 	viper.AddConfigPath(basePath + fmt.Sprintf("%sconfig", concurrentOsTag))
 	viper.SetConfigType("yml")
 	if err := viper.ReadInConfig(); err != nil {
-		panic(fmt.Errorf("Error reading config, %s", err))
+		panic(fmt.Errorf("init config Error reading config, %s", err))
 	}
 	err = viper.Unmarshal(&AppConf)
 	if err != nil {
-		panic(fmt.Errorf("unable to decode into appConf, %v", err))
+		panic(fmt.Errorf("init config unable to decode into appConf, %v", err))
 	}
 	logrus.Infof("AppConf = %v", AppConf)
 	AppConf.ENV = env
-	logrus.Infof("init courseSystem success: env = %v, conf = %v", AppConf.ENV, AppConf)
+	logrus.Infof("init CloudTravelShopApi/go success: env = %v, conf = %v", AppConf.ENV, AppConf)
 }
 
 func GetBasePath() (path string, pathTag string) {
@@ -79,15 +70,6 @@ func GetBasePath() (path string, pathTag string) {
 	} else {
 		concurrentOsTag = "/"
 	}
-	path, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	logrus.Infof("path = %v", path)
-	idx := strings.Index(path, fmt.Sprintf("%scourseSystem", concurrentOsTag))
-	if idx < 0 {
-		panic(fmt.Errorf("project path /courseSystem idx = %v", idx))
-	}
-	basePath := path[0:idx] + fmt.Sprintf("%scourseSystem", concurrentOsTag)
-	return basePath, concurrentOsTag
+	path, _ = os.Getwd()
+	return path, concurrentOsTag
 }
