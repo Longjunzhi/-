@@ -3,11 +3,13 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/sirupsen/logrus"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
+	"pxj/CloudTravelShopApi/go/config"
 	_ "pxj/CloudTravelShopApi/go/config"
 	"pxj/CloudTravelShopApi/go/routes"
 	"syscall"
@@ -21,7 +23,7 @@ func main() {
 		}
 	}()
 	router := routes.Routes
-	address := "0.0.0.0"
+	address := fmt.Sprintf("%s:%d", config.AppConf.ServerConf.Host, config.AppConf.ServerConf.Port)
 	server := &http.Server{
 		Addr:           address,
 		Handler:        router,
