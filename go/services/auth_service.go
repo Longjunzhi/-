@@ -16,6 +16,5 @@ type LoginByPasswordResponse struct {
 }
 
 func LoginByPassword(ctx context.Context, req *LoginByPasswordRequest) (resp *LoginByPasswordResponse, code int, err error) {
-
 	return resp, 200, nil
 }

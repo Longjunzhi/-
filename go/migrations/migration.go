@@ -1,8 +1,8 @@
 package migrations
 
 import (
+	"pxj/CloudTravelShopApi/go/databases"
 	"pxj/CloudTravelShopApi/go/models"
-	"pxj/courseSystem/api/databases"
 )
 
 func init() {
