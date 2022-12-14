@@ -2,8 +2,10 @@ package models
 
 import (
 	"fmt"
+	"github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"pxj/CloudTravelShopApi/go/config"
+	"strings"
 )
 
 var (
@@ -19,4 +21,17 @@ func init() {
 		config.AppConf.MysqlConf.DB,
 	)
 	Db, _ = gorm.Open("mysql", dsn)
+}
+func IsErrorRecordNotFound(err error) bool {
+	if strings.Contains(err.Error(), "record not found") {
+		return true
+	}
+	return false
+}
+
+func IsErrorRecordDuplicated(err error) bool {
+	if err, ok := err.(*mysql.MySQLError); ok && err.Number == 1062 {
+		return true
+	}
+	return false
 }

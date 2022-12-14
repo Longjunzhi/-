@@ -1,7 +1,6 @@
 package services
 
 import (
-	"context"
 	"net/http"
 	"pxj/CloudTravelShopApi/go/models"
 )
@@ -17,7 +16,13 @@ type LoginByPasswordResponse struct {
 	User  *models.User `json:"user"`
 }
 
-func LoginByPassword(ctx context.Context, req *LoginByPasswordRequest) (resp *LoginByPasswordResponse, code int, err error) {
-
+func LoginByPassword(req *LoginByPasswordRequest) (resp *LoginByPasswordResponse, code int, err error) {
+	adminUser := models.NewAdminUser()
+	adminUser.Name = req.UserName
+	adminUser.Password = req.Password
+	err = adminUser.FirstOrCreate()
+	if err != nil {
+		return nil, http.StatusInternalServerError, err
+	}
 	return resp, http.StatusOK, nil
 }

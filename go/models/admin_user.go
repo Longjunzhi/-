@@ -21,8 +21,14 @@ func (au *AdminUser) TableName() string {
 	return AdminUserTableName
 }
 
-func (adminUser *AdminUser) FirstOrCreate() {
-	Db.Where(AdminUser{
+func (adminUser *AdminUser) FirstOrCreate() (err error) {
+	err = Db.Debug().Where(AdminUser{
 		Name: adminUser.Name,
-	}).Attrs(adminUser).FirstOrCreate(&adminUser)
+	}).Attrs(adminUser).FirstOrCreate(&adminUser).Error
+	return err
+}
+
+func (adminUser *AdminUser) Create() (err error) {
+	err = Db.Debug().Create(&adminUser).Error
+	return err
 }
