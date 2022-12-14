@@ -28,8 +28,8 @@ func init() {
 
 	// 不需要token接口
 	admin.POST("/login", controllers.ApiLogin)
-	admin.POST("/login/account", controllers.AdminLogin)
+	admin.POST("/login/account", controllers.AdminUserLoginByAccount)
 	// 需要token接口
-	authAdmin.POST("/users/getUserById", controllers.ApiLogin)
+	authAdmin.GET("/currentUser", controllers.CurrentUser)
 
 }
