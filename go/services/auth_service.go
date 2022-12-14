@@ -2,12 +2,14 @@ package services
 
 import (
 	"context"
+	"net/http"
 	"pxj/CloudTravelShopApi/go/models"
 )
 
 type LoginByPasswordRequest struct {
-	Name     string `json:"name"`
+	UserName string `json:"username"`
 	Password string `json:"password"`
+	Type     string `json:"type"`
 }
 
 type LoginByPasswordResponse struct {
@@ -16,5 +18,6 @@ type LoginByPasswordResponse struct {
 }
 
 func LoginByPassword(ctx context.Context, req *LoginByPasswordRequest) (resp *LoginByPasswordResponse, code int, err error) {
-	return resp, 200, nil
+
+	return resp, http.StatusOK, nil
 }

@@ -1,8 +1,8 @@
-package databases
+package models
 
 import "github.com/jinzhu/gorm"
 
-const AdminUserTable = "admin_users"
+const AdminUserTableName = "admin_users"
 
 type AdminUser struct {
 	gorm.Model
@@ -13,8 +13,12 @@ type AdminUser struct {
 	ParentId int64  `gorm:"default:0"`
 }
 
-func (adminUser *AdminUser) TableName() string {
-	return AdminUserTable
+func NewAdminUser() (au *AdminUser) {
+	return &AdminUser{}
+}
+
+func (au *AdminUser) TableName() string {
+	return AdminUserTableName
 }
 
 func (adminUser *AdminUser) FirstOrCreate() {
