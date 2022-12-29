@@ -16,7 +16,11 @@ type AdminUserLoginByAccountResponse struct {
 	Token            string   `json:"token"`
 	Status           string   `json:"status"`
 	Type             string   `json:"type"`
+	Name             string   `json:"name"`
 	CurrentAuthority []string `json:"currentAuthority"`
+	Data             struct {
+		Name string `json:"name"`
+	} `json:"data"`
 }
 
 func AdminUserLoginByAccount(req *AdminUserLoginByAccountRequest) (resp *AdminUserLoginByAccountResponse, code int, err error) {
@@ -28,9 +32,11 @@ func AdminUserLoginByAccount(req *AdminUserLoginByAccountRequest) (resp *AdminUs
 	if err != nil {
 		return nil, http.StatusInternalServerError, err
 	}
-	resp.Type = req.Type
+	resp.Type = "account"
 	resp.Token = "123456"
 	resp.Status = "ok"
+	resp.Name = "ok"
+	resp.Data.Name = "ok"
 	resp.CurrentAuthority = []string{
 		"超级管理员",
 	}

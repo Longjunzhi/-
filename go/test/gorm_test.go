@@ -4,14 +4,9 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"pxj/CloudTravelShopApi/go/models"
 	"testing"
 )
-
-type Product struct {
-	gorm.Model
-	Code  string
-	Price uint
-}
 
 func TestGorm(t *testing.T) {
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
@@ -24,21 +19,24 @@ func TestGorm(t *testing.T) {
 	fmt.Printf("dsn: %v", dsn)
 	db, _ := gorm.Open("mysql", dsn)
 
-	db.AutoMigrate(&Product{})
+	db.AutoMigrate(
+		&models.User{},
+		&models.AdminUser{},
+	)
 	// Create
-	db.Create(&Product{Code: "D42", Price: 100})
+	db.Create(&models.User{Name: "D42", Password: "100"})
 
 	// Read
-	var product Product
-	db.First(&product, 1)                 // 根据整型主键查找
-	db.First(&product, "code = ?", "D42") // 查找 code 字段值为 D42 的记录
+	var user models.User
+	db.First(&user, 1)                 // 根据整型主键查找
+	db.First(&user, "code = ?", "D42") // 查找 code 字段值为 D42 的记录
 
 	// Update - 将 product 的 price 更新为 200
-	db.Model(&product).Update("Price", 200)
+	db.Model(&user).Update("Password", 200)
 	// Update - 更新多个字段
-	db.Model(&product).Updates(Product{Price: 200, Code: "F42"}) // 仅更新非零值字段
-	db.Model(&product).Updates(map[string]interface{}{"Price": 200, "Code": "F42"})
+	db.Model(&user).Updates(models.User{Name: "200", Password: "F42"}) // 仅更新非零值字段
+	db.Model(&user).Updates(map[string]interface{}{"Name": 200, "Password": "F42"})
 
 	// Delete - 删除 product
-	db.Delete(&product, 1)
+	db.Delete(&user, 1)
 }
