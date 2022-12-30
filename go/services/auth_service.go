@@ -1,8 +1,12 @@
 package services
 
 import (
+	"fmt"
+	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"pxj/CloudTravelShopApi/go/models"
+	"pxj/CloudTravelShopApi/go/utils"
+	"strconv"
 )
 
 type AdminUserLoginByAccountRequest struct {
@@ -16,7 +20,6 @@ type AdminUserLoginByAccountResponse struct {
 	Token            string   `json:"token"`
 	Status           string   `json:"status"`
 	Type             string   `json:"type"`
-	Name             string   `json:"name"`
 	CurrentAuthority []string `json:"currentAuthority"`
 	Data             struct {
 		Name string `json:"name"`
@@ -26,17 +29,23 @@ type AdminUserLoginByAccountResponse struct {
 func AdminUserLoginByAccount(req *AdminUserLoginByAccountRequest) (resp *AdminUserLoginByAccountResponse, code int, err error) {
 	resp = &AdminUserLoginByAccountResponse{}
 	adminUser := models.NewAdminUser()
-	adminUser.Name = req.UserName
-	adminUser.Password = req.Password
-	err = adminUser.FirstOrCreate()
+	err = models.Db.First(&adminUser, "name = ?", req.UserName).Error
+	fmt.Printf("adminUser: %+v", adminUser)
+	err = bcrypt.CompareHashAndPassword([]byte(adminUser.Password), []byte(req.Password))
+	if err != nil {
+		return nil, http.StatusInternalServerError, err
+	}
+	if err != nil {
+		return nil, http.StatusInternalServerError, err
+	}
+	token, err := utils.GenerateJwtToken(strconv.Itoa(int(adminUser.ID)))
 	if err != nil {
 		return nil, http.StatusInternalServerError, err
 	}
 	resp.Type = "account"
-	resp.Token = "123456"
+	resp.Token = token
 	resp.Status = "ok"
-	resp.Name = "ok"
-	resp.Data.Name = "ok"
+	resp.Data.Name = adminUser.Name
 	resp.CurrentAuthority = []string{
 		"超级管理员",
 	}

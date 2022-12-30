@@ -4,6 +4,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 	"pxj/CloudTravelShopApi/go/models"
 	"testing"
 )
@@ -24,7 +25,11 @@ func TestGorm(t *testing.T) {
 		&models.AdminUser{},
 	)
 	// Create
-	db.Create(&models.AdminUser{Name: "root", Password: "123456"})
+	password, err := bcrypt.GenerateFromPassword([]byte("123456"), bcrypt.MinCost)
+	if err != nil {
+		return
+	}
+	db.Create(&models.AdminUser{Name: "root", Password: string(password)})
 
 	// Read
 	//var adminUser models.AdminUser

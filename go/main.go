@@ -11,12 +11,15 @@ import (
 	"os/signal"
 	"pxj/CloudTravelShopApi/go/config"
 	_ "pxj/CloudTravelShopApi/go/config"
+	"pxj/CloudTravelShopApi/go/models"
 	"pxj/CloudTravelShopApi/go/routes"
 	"syscall"
 	"time"
 )
 
 func main() {
+	// 初始化
+	models.DbInit()
 	defer func() {
 		if err := recover(); err != nil {
 			println(err.(string))
