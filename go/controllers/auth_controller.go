@@ -30,3 +30,12 @@ func CurrentUser(c *gin.Context) {
 	}
 	c.JSON(code, resp)
 }
+
+func Rule(c *gin.Context) {
+
+	c.JSON(http.StatusUnauthorized, "未授权")
+}
+
+func OutLogin(c *gin.Context) {
+	c.JSON(http.StatusOK, "退出登录")
+}

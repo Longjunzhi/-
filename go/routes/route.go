@@ -27,9 +27,10 @@ func init() {
 	admin := Routes.Group("/admin")
 
 	// 不需要token接口
-	admin.POST("/login", controllers.ApiLogin)
 	admin.POST("/login/account", controllers.AdminUserLoginByAccount)
 	// 需要token接口
-	authAdmin.GET("/currentUser", controllers.CurrentUser)
+	authAdmin.POST("/currentUser", controllers.CurrentUser)
+	authAdmin.POST("/login/outLogin", controllers.OutLogin)
+	authAdmin.POST("/rule", controllers.Rule)
 
 }
