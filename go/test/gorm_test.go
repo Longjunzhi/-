@@ -14,7 +14,7 @@ func TestGorm(t *testing.T) {
 		"119129",
 		"175.178.218.166",
 		3306,
-		"pxjCourseSystem",
+		"cloudTravelShop",
 	)
 	fmt.Printf("dsn: %v", dsn)
 	db, _ := gorm.Open("mysql", dsn)
