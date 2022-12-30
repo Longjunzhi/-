@@ -1,13 +1,18 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+	"time"
+)
 
 type AdminUser struct {
+	Name          string `gorm:"default:''"`
+	Mobile        string `gorm:"default:''"`
+	Password      string `gorm:"default:''"`
+	ParentId      int64  `gorm:"default:0"`
+	LastLoginTime time.Time
+	LoginIp       string
 	gorm.Model
-	Name     string `gorm:"default:''"`
-	Mobile   string `gorm:"default:''"`
-	Password string `gorm:"default:''"`
-	ParentId int64  `gorm:"default:0"`
 }
 
 func NewAdminUser() (au *AdminUser) {
