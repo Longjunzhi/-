@@ -71,5 +71,10 @@ func GetBasePath() (path string, pathTag string) {
 		concurrentOsTag = "/"
 	}
 	path, _ = os.Getwd()
+	idx := strings.Index(path, fmt.Sprintf("%sCloudTravelShopApi%sgo", concurrentOsTag, concurrentOsTag))
+	if idx < 0 {
+		panic(fmt.Errorf("project path /CloudTravelShopApi/go idx = %v", idx))
+	}
+	path = path[0:idx] + fmt.Sprintf("%sCloudTravelShopApi%sgo", concurrentOsTag, concurrentOsTag)
 	return path, concurrentOsTag
 }

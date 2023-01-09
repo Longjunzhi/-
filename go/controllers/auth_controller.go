@@ -22,8 +22,8 @@ func AdminUserLoginByAccount(c *gin.Context) {
 }
 
 func CurrentUser(c *gin.Context) {
-	req := &services.AdminUserLoginByAccountRequest{}
-	resp, code, err := services.AdminUserLoginByAccount(req)
+	req := &services.CurrentUserRequest{}
+	resp, code, err := services.CurrentUser(req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, "服务器异常")
 		return
