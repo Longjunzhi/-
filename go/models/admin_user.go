@@ -39,8 +39,6 @@ func GetAdminUserModel() (model *gorm.DB, err error) {
 
 func GetAdminUserById(id uint) (adminUser *AdminUser, err error) {
 	adminUser = &AdminUser{}
-	err = Db.Debug().Where(map[string]uint{
-		"id": id,
-	}).First(&adminUser).Error
+	err = Db.Debug().First(&adminUser, "id=?", id).Error
 	return adminUser, err
 }
