@@ -53,20 +53,23 @@ func AdminUserLoginByAccount(req *AdminUserLoginByAccountRequest) (resp *AdminUs
 }
 
 type CurrentUserRequest struct {
+	AdminUserId uint `json:"admin_user_id"`
 }
 
-type CurrentUserResponse struct {
-	Name        string   `json:"token"`
-	Permissions []string `json:"status"`
-	Roles       []string `json:"type"`
+type CurrentUserData struct {
+	Name        string   `json:"name"`
+	Permissions []string `json:"permissions"`
+	Roles       []string `json:"roles"`
 }
 
-func CurrentUser(req *CurrentUserRequest) (resp *CurrentUserResponse, code int, err error) {
-	resp = &CurrentUserResponse{}
-	adminUser, err := models.GetAdminUserById(1)
+func CurrentUser(req *CurrentUserRequest) (resp *Response, code int, err error) {
+	resp = &Response{}
+	data := &CurrentUserData{}
+	adminUser, err := models.GetAdminUserById(req.AdminUserId)
 	if err != nil {
 		return nil, http.StatusInternalServerError, err
 	}
-	resp.Name = adminUser.Name
+	data.Name = adminUser.Name
+	resp.setData(data)
 	return resp, http.StatusOK, nil
 }

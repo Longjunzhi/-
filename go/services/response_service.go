@@ -1,15 +1,22 @@
 package services
 
 type Response struct {
-	data    any
-	message string
-	code    int
+	Data    any    `json:"data"`
+	Message string `json:"message"`
+	Code    int    `json:"code"`
 }
 
-func GetResponse(data any, message string, code int) (resp *Response) {
-	resp = &Response{}
-	resp.data = data
-	resp.message = message
-	resp.code = code
-	return resp
+func (r *Response) setData(data any) *Response {
+	r.Data = data
+	return r
+}
+
+func (r *Response) setMessage(message string) *Response {
+	r.Message = message
+	return r
+}
+
+func (r *Response) setCode(code int) *Response {
+	r.Code = code
+	return r
 }

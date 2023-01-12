@@ -13,7 +13,7 @@ func init() {
 
 	// api前端接口
 	authApi := Routes.Group("/api")
-	authApi.Use(middlewares.Auth())
+	authApi.Use(middlewares.ApiAuth())
 	api := Routes.Group("/api")
 
 	// 不需要token接口
@@ -23,7 +23,7 @@ func init() {
 
 	// admin后台接口
 	authAdmin := Routes.Group("/admin")
-	authAdmin.Use(middlewares.Auth())
+	authAdmin.Use(middlewares.AdminAuth())
 	admin := Routes.Group("/admin")
 
 	// 不需要token接口

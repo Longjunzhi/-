@@ -3,7 +3,9 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"pxj/CloudTravelShopApi/go/constant"
 	"pxj/CloudTravelShopApi/go/services"
+	"strconv"
 )
 
 func AdminUserLoginByAccount(c *gin.Context) {
@@ -23,6 +25,10 @@ func AdminUserLoginByAccount(c *gin.Context) {
 
 func CurrentUser(c *gin.Context) {
 	req := &services.CurrentUserRequest{}
+	if adminUserId, ok := c.Get(constant.CONTEXT_KEY_ADMIN_USER_ID); ok {
+		adminUserIdInt, _ := strconv.Atoi(adminUserId.(string))
+		req.AdminUserId = uint(adminUserIdInt)
+	}
 	resp, code, err := services.CurrentUser(req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, "服务器异常")
