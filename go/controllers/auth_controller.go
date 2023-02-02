@@ -39,7 +39,8 @@ func CurrentUser(c *gin.Context) {
 
 func Rule(c *gin.Context) {
 
-	c.JSON(http.StatusUnauthorized, "未授权")
+	c.JSON(http.StatusOK, "")
+	//c.JSON(http.StatusUnauthorized, "未授权")
 }
 
 func OutLogin(c *gin.Context) {
