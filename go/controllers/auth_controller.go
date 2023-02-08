@@ -8,6 +8,11 @@ import (
 	"strconv"
 )
 
+// AdminUserLoginByAccount
+// @Tags         adminLogin
+// @Accept       json
+// @Success      200  {object} services.AdminUserLoginByAccountResponse
+// @Router       /admin/login/account [post]
 func AdminUserLoginByAccount(c *gin.Context) {
 	req := &services.AdminUserLoginByAccountRequest{}
 	err := c.BindJSON(&req)

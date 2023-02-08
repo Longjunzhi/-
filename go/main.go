@@ -5,12 +5,17 @@ import (
 	"errors"
 	"fmt"
 	"github.com/sirupsen/logrus"
+	_ "github.com/swaggo/files"
+	swaggerFiles "github.com/swaggo/files"
+	_ "github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"pxj/CloudTravelShopApi/go/config"
 	_ "pxj/CloudTravelShopApi/go/config"
+	docs "pxj/CloudTravelShopApi/go/docs"
 	"pxj/CloudTravelShopApi/go/models"
 	"pxj/CloudTravelShopApi/go/routes"
 	"syscall"
@@ -26,6 +31,8 @@ func main() {
 		}
 	}()
 	router := routes.Routes
+	docs.SwaggerInfo.BasePath = ""
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	address := fmt.Sprintf("%s:%d", config.AppConf.ServerConf.Host, config.AppConf.ServerConf.Port)
 	server := &http.Server{
 		Addr:           address,

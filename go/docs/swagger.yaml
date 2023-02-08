@@ -1,0 +1,53 @@
+definitions:
+  services.AdminUserLoginByAccountResponse:
+    properties:
+      currentAuthority:
+        items:
+          type: string
+        type: array
+      data:
+        properties:
+          name:
+            type: string
+        type: object
+      status:
+        type: string
+      token:
+        type: string
+      type:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /admin/login/account:
+    post:
+      consumes:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.AdminUserLoginByAccountResponse'
+      tags:
+      - adminLogin
+  /api/login:
+    post:
+      consumes:
+      - application/json
+      description: get string by ID
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Show an account
+      tags:
+      - login
+swagger: "2.0"
