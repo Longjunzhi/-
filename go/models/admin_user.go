@@ -9,7 +9,7 @@ type AdminUser struct {
 	Name          string `gorm:"default:''"`
 	Mobile        string `gorm:"default:''"`
 	Password      string `gorm:"default:''"`
-	ParentId      int64  `gorm:"default:0"`
+	ParentId      uint8  `gorm:"default:0"`
 	LastLoginTime time.Time
 	LoginIp       string
 	gorm.Model

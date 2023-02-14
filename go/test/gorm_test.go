@@ -1,27 +1,24 @@
 package test
 
 import (
-	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"golang.org/x/crypto/bcrypt"
-	"pxj/CloudTravelShopApi/go/models"
 	"testing"
 )
 
 func TestGorm(t *testing.T) {
-	fmt.Print("test gorm")
-	models.DbInit()
-	db := models.Db
-	db.AutoMigrate(
-		&models.User{},
-		&models.AdminUser{},
-	)
-	// Create
-	password, err := bcrypt.GenerateFromPassword([]byte("1234567"), bcrypt.MinCost)
-	if err != nil {
-		return
-	}
-	db.FirstOrCreate(&models.AdminUser{Name: "root", Password: string(password)})
+	//fmt.Print("test gorm")
+	//models.DbInit()
+	//db := models.Db
+	//db.AutoMigrate(
+	//	&models.User{},
+	//	&models.AdminUser{},
+	//)
+	//// Create
+	//password, err := bcrypt.GenerateFromPassword([]byte("1234567"), bcrypt.MinCost)
+	//if err != nil {
+	//	return
+	//}
+	//db.FirstOrCreate(&models.AdminUser{Name: "root", Password: string(password)})
 	// Read
 	//var adminUser models.AdminUser
 	//db.First(&adminUser, 1)                 // 根据整型主键查找

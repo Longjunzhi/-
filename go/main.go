@@ -15,6 +15,7 @@ import (
 	"os/signal"
 	"pxj/CloudTravelShopApi/go/config"
 	_ "pxj/CloudTravelShopApi/go/config"
+	"pxj/CloudTravelShopApi/go/database"
 	docs "pxj/CloudTravelShopApi/go/docs"
 	"pxj/CloudTravelShopApi/go/models"
 	"pxj/CloudTravelShopApi/go/routes"
@@ -25,6 +26,7 @@ import (
 func main() {
 	// 初始化
 	models.DbInit()
+	database.DbInit()
 	defer func() {
 		if err := recover(); err != nil {
 			println(err.(string))

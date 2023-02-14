@@ -32,5 +32,6 @@ func init() {
 	authAdmin.POST("/currentUser", controllers.CurrentUser)
 	authAdmin.POST("/login/outLogin", controllers.OutLogin)
 	authAdmin.POST("/rule", controllers.Rule)
+	authAdmin.POST("/admin-users/get", controllers.AdminUserGet)
 
 }

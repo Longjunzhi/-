@@ -1,17 +1,19 @@
 package test
 
 import (
-	"fmt"
+	"github.com/sirupsen/logrus"
+	"pxj/CloudTravelShopApi/go/database"
 	"pxj/CloudTravelShopApi/go/models"
 	"testing"
 )
 
 func TestTemp(t *testing.T) {
-	fmt.Print("test temp")
-	models.DbInit()
-	adminUser, err := models.GetAdminUserById(1)
+	database.DbInit()
+	adminUsers := make([]models.AdminUser, 0)
+	err := database.Db.Model(&models.AdminUser{}).Where("id = ?", 1).Find(&adminUsers).Error
 	if err != nil {
-		t.Errorf("err: %+v", err)
+		t.Errorf("is err: %+v", err)
 	}
-	t.Fatal(adminUser)
+	logrus.Printf("adminUsers %+#v", adminUsers)
+	t.Fatal()
 }
