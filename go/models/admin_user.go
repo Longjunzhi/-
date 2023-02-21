@@ -6,12 +6,13 @@ import (
 )
 
 type AdminUser struct {
-	Name          string `gorm:"default:''"`
-	Mobile        string `gorm:"default:''"`
-	Password      string `gorm:"default:''"`
-	ParentId      uint8  `gorm:"default:0"`
-	LastLoginTime time.Time
-	LoginIp       string
+	ID            uint      `json:"id"`
+	Name          string    `gorm:"default:''" json:"name"`
+	Mobile        string    `gorm:"default:''" json:"mobile"`
+	Password      string    `gorm:"default:''" json:"password"`
+	ParentId      uint8     `gorm:"default:0" json:"parent_id"`
+	LastLoginTime time.Time `json:"last_login_time"`
+	LoginIp       string    `json:"login_ip"`
 	gorm.Model
 }
 
